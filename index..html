@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>حصر — ملف العرض الاستثماري الشامل | HASR Pitch Deck</title>
+<meta name="description" content="منصة حصر — أول بنية تحتية رقمية لتصفية التركات العقارية في السعودية. ملف عرض استثماري شامل مع دراسة جدوى موثقة." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<style>
+  :root {
+    --hasr-deep: #0d2818;
+    --hasr-green: #1a4d2e;
+    --hasr-gold: #c9a961;
+    --hasr-gold-light: #e4c989;
+    --hasr-cream: #f7f3ea;
+    --hasr-paper: #fbfaf6;
+    --hasr-ink: #0a1f12;
+    --hasr-red: #b8453a;
+    --hasr-blue: #2a5d7a;
+  }
+
+  * { -webkit-font-smoothing: antialiased; }
+
+  body {
+    font-family: 'Tajawal', system-ui, sans-serif;
+    background: var(--hasr-paper);
+    color: var(--hasr-ink);
+    overflow-x: hidden;
+    font-weight: 400;
+  }
+
+  .font-display { font-family: 'Cairo', sans-serif; letter-spacing: -0.02em; font-weight: 800; }
+  .font-serif-en { font-family: 'Cormorant Garamond', serif; }
+
+  /* Paper texture */
+  .paper-bg {
+    background-color: var(--hasr-paper);
+    background-image:
+      radial-gradient(circle at 25% 25%, rgba(201,169,97,0.04) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(26,77,46,0.03) 0%, transparent 50%);
+  }
+
+  .deep-bg {
+    background: linear-gradient(180deg, var(--hasr-deep) 0%, var(--hasr-green) 100%);
+    position: relative;
+  }
+  .deep-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(201,169,97,0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(201,169,97,0.05) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  .gold-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--hasr-gold) 50%, transparent 100%);
+  }
+  .gold-line-thick {
+    height: 2px;
+    background: var(--hasr-gold);
+  }
+
+  /* Animated number */
+  .num-display {
+    font-family: 'Cairo', sans-serif;
+    font-feature-settings: 'tnum';
+    letter-spacing: -0.03em;
+  }
+
+  /* Section transitions */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Decorative elements */
+  .corner-mark::before, .corner-mark::after {
+    content: '';
+    position: absolute;
+    width: 24px; height: 24px;
+    border: 2px solid var(--hasr-gold);
+  }
+  .corner-mark::before { top: -2px; right: -2px; border-bottom: none; border-left: none; }
+  .corner-mark::after { bottom: -2px; left: -2px; border-top: none; border-right: none; }
+
+  /* Card hover */
+  .data-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .data-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px -12px rgba(13,40,24,0.15);
+  }
+
+  /* Source badge */
+  .source-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.55);
+    font-family: 'Tajawal', sans-serif;
+    border-top: 1px dashed rgba(201,169,97,0.3);
+    padding-top: 8px;
+    margin-top: 12px;
+    letter-spacing: 0.02em;
+  }
+  .source-badge.dark {
+    color: rgba(10,31,18,0.55);
+    border-top-color: rgba(26,77,46,0.25);
+  }
+  .source-badge::before {
+    content: '◆';
+    color: var(--hasr-gold);
+    font-size: 8px;
+  }
+
+  /* Chart container */
+  .chart-wrap {
+    position: relative;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(201,169,97,0.2);
+    border-radius: 4px;
+    padding: 24px;
+  }
+
+  /* Slide number */
+  .slide-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--hasr-gold);
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* Hero ornaments */
+  .hero-ornament {
+    position: absolute;
+    border: 1px solid rgba(201,169,97,0.25);
+    pointer-events: none;
+  }
+
+  /* Quote mark */
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    line-height: 1;
+    color: var(--hasr-gold);
+    opacity: 0.3;
+  }
+
+  /* Risk matrix cell */
+  .risk-cell {
+    border: 1px solid rgba(201,169,97,0.3);
+    background: rgba(13,40,24,0.6);
+  }
+
+  /* Print optimization */
+  @media print {
+    .no-print { display: none; }
+    section { page-break-inside: avoid; }
+  }
+
+  /* Smooth scroll */
+  html { scroll-behavior: smooth; }
+
+  /* Nav */
+  .nav-pill {
+    transition: all 0.3s;
+  }
+  .nav-pill:hover {
+    background: var(--hasr-gold);
+    color: var(--hasr-deep);
+  }
+
+  /* Stat ticker line */
+  .ticker-bar {
+    background: var(--hasr-deep);
+    border-top: 1px solid var(--hasr-gold);
+    border-bottom: 1px solid var(--hasr-gold);
+  }
+
+  /* Number display large */
+  .num-xxl {
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 0.95;
+    font-weight: 700;
+    color: var(--hasr-gold);
+    font-family: 'Cairo', sans-serif;
+    letter-spacing: -0.04em;
+  }
+
+  /* Section header decoration */
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--hasr-gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .section-tag::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--hasr-gold);
+  }
+
+  /* Vertical text marker */
+  .v-marker {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--hasr-gold);
+    opacity: 0.4;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+  }
+
+  /* Funnel visualization */
+  .funnel-bar {
+    background: linear-gradient(90deg, var(--hasr-gold) 0%, rgba(201,169,97,0.3) 100%);
+    transition: all 0.6s ease;
+  }
+
+  /* Tab style for scenarios */
+  .scenario-card {
+    border: 1px solid rgba(201,169,97,0.3);
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(8px);
+  }
+  .scenario-card.active {
+    border-color: var(--hasr-gold);
+    background: var(--hasr-deep);
+    color: white;
+  }
+</style>
+</head>
+
+<body class="paper-bg">
+
+<!-- ====================================================== -->
+<!-- 1. NAVIGATION (sticky, minimal) -->
+<!-- ====================================================== -->
+<nav class="no-print sticky top-0 z-50 backdrop-blur-md bg-[rgba(13,40,24,0.92)] border-b border-[rgba(201,169,97,0.2)]">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="font-display text-2xl text-[#c9a961]">حصر</span>
+      <span class="text-[10px] text-white/50 tracking-[0.2em]">ARKANE AI · 2026</span>
+    </div>
+    <div class="hidden md:flex items-center gap-1 text-xs text-white/70">
+      <a href="#summary" class="nav-pill px-3 py-1.5 rounded">الملخص</a>
+      <a href="#problem" class="nav-pill px-3 py-1.5 rounded">المشكلة</a>
+      <a href="#solution" class="nav-pill px-3 py-1.5 rounded">الحل</a>
+      <a href="#market" class="nav-pill px-3 py-1.5 rounded">السوق</a>
+      <a href="#competition" class="nav-pill px-3 py-1.5 rounded">المنافسة</a>
+      <a href="#financials" class="nav-pill px-3 py-1.5 rounded">المالية</a>
+      <a href="#gtm" class="nav-pill px-3 py-1.5 rounded">الدخول</a>
+      <a href="#ask" class="nav-pill px-3 py-1.5 rounded bg-[#c9a961] text-[#0d2818] font-semibold">الاستحواذ</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ====================================================== -->
+<!-- 2. HERO COVER -->
+<!-- ====================================================== -->
+<section class="deep-bg min-h-screen relative flex items-center overflow-hidden">
+
+  <!-- Decorative ornaments -->
+  <div class="hero-ornament w-64 h-64 rounded-full" style="top:8%; right:-100px;"></div>
+  <div class="hero-ornament w-96 h-96 rounded-full" style="bottom:-160px; left:-180px;"></div>
+  <div class="hero-ornament" style="top:20%; left:8%; width:1px; height:200px; background:rgba(201,169,97,0.4);"></div>
+
+  <!-- Vertical marker -->
+  <div class="absolute top-1/2 -translate-y-1/2 left-8 hidden lg:block">
+    <div class="v-marker">CONFIDENTIAL · INVESTOR DECK · 2026</div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 py-24 relative z-10 w-full">
+
+    <!-- Top meta -->
+    <div class="flex items-start justify-between mb-16 pb-8 border-b border-[rgba(201,169,97,0.2)]">
+      <div>
+        <div class="text-[#c9a961] text-xs tracking-[0.3em] mb-2">ARKANE AI · STRATEGIC INTELLIGENCE</div>
+        <div class="text-white/60 text-xs">ملف العرض الاستثماري الشامل · إصدار 2026</div>
+      </div>
+      <div class="text-left">
+        <div class="text-[#c9a961] text-xs tracking-[0.2em]">PROPTECH · LEGALTECH</div>
+        <div class="text-white/60 text-xs">المملكة العربية السعودية</div>
+      </div>
+    </div>
+
+    <!-- Main hero -->
+    <div class="text-center">
+      <div class="inline-block mb-6 px-4 py-1.5 border border-[#c9a961]/40 rounded-full text-[10px] tracking-[0.3em] text-[#c9a961]">
+        SAUDI INHERITANCE SETTLEMENT · AI-POWERED
+      </div>
+
+      <h1 class="font-display text-[#c9a961] mb-4 leading-none" style="font-size: clamp(5rem, 16vw, 14rem); font-weight: 700; letter-spacing: -0.05em;">
+        حصر
+      </h1>
+      <div class="font-serif-en text-white/70 text-sm tracking-[0.4em] mb-12">H A S R</div>
+
+      <h2 class="font-display text-white text-2xl md:text-4xl mb-6 leading-tight" style="font-weight: 500;">
+        البنية التحتية الرقمية<br/>
+        <span class="text-[#c9a961]">لتصفية التركات العقارية</span> في السعودية
+      </h2>
+
+      <p class="text-white/70 max-w-2xl mx-auto text-lg leading-relaxed mb-16">
+        أول منظومة مدعومة بالذكاء الاصطناعي تجمع الوارث، المكتب القانوني، والمستثمر
+        في منصة واحدة — من إدخال بيانات التركة حتى توزيع الأصول.
+      </p>
+
+      <!-- Hero stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-[rgba(201,169,97,0.15)] max-w-4xl mx-auto">
+        <div class="bg-[#0d2818] p-6 text-center">
+          <div class="num-xxl" style="font-size: 2.5rem;">2.5T</div>
+          <div class="text-white/60 text-xs mt-2">ريال صفقات عقارية 2024</div>
+          <div class="text-[#c9a961]/60 text-[9px] mt-1 tracking-wide">وزارة العدل</div>
+        </div>
+        <div class="bg-[#0d2818] p-6 text-center">
+          <div class="num-xxl" style="font-size: 2.5rem;">622K+</div>
+          <div class="text-white/60 text-xs mt-2">صفقة عقارية / السنة</div>
+          <div class="text-[#c9a961]/60 text-[9px] mt-1 tracking-wide">البورصة العقارية</div>
+        </div>
+        <div class="bg-[#0d2818] p-6 text-center">
+          <div class="num-xxl" style="font-size: 2.5rem;">5–12</div>
+          <div class="text-white/60 text-xs mt-2">سنة متوسط تسوية التركة</div>
+          <div class="text-[#c9a961]/60 text-[9px] mt-1 tracking-wide">JLL Saudi 2023</div>
+        </div>
+        <div class="bg-[#0d2818] p-6 text-center">
+          <div class="num-xxl" style="font-size: 2.5rem;">0</div>
+          <div class="text-white/60 text-xs mt-2">منافس رقمي متخصص</div>
+          <div class="text-[#c9a961]/60 text-[9px] mt-1 tracking-wide">تحليل ARKANE AI</div>
+        </div>
+      </div>
+
+      <div class="mt-16 text-white/40 text-xs">
+        ↓ &nbsp;&nbsp; اقرأ الملف كاملاً &nbsp;&nbsp; ↓
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- 3. EXECUTIVE SUMMARY (one-pager) -->
+<!-- ====================================================== -->
+<section id="summary" class="py-24 px-6 paper-bg">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="flex items-end justify-between mb-12 pb-6 border-b border-[#1a4d2e]/20">
+      <div>
+        <div class="section-tag mb-3">00 — Executive Summary</div>
+        <h2 class="font-display text-4xl md:text-5xl text-[#0d2818]">الملخص التنفيذي</h2>
+      </div>
+      <div class="text-xs text-[#0a1f12]/50 italic">للمستثمر المتعجل · صفحة واحدة</div>
+    </div>
+
+    <!-- Two column layout -->
+    <div class="grid md:grid-cols-12 gap-8">
+
+      <!-- Left: narrative -->
+      <div class="md:col-span-7 space-y-6">
+        <div>
+          <div class="text-[#c9a961] text-xs font-semibold mb-2 tracking-wider">الفرصة</div>
+          <p class="text-[#0a1f12] leading-relaxed">
+            السوق العقاري السعودي تجاوز <span class="font-bold text-[#1a4d2e]">2.5 تريليون ريال في صفقات 2024</span>،
+            ومئات آلاف الملفات تدخل سنوياً مرحلة تصفية إرثية تستغرق
+            <span class="font-bold text-[#b8453a]">5 إلى 12 سنة</span> من خلال قنوات يدوية
+            (محاكم + مكاتب محاماة + جداول إكسل + واتساب). هذه الفجوة الإجرائية تُكلّف ملاك التركات
+            خسائر سنوية مركّبة بسبب تجميد الأصول، تدهور العقار، والنزاعات المتأخرة.
+          </p>
+        </div>
+
+        <div>
+          <div class="text-[#c9a961] text-xs font-semibold mb-2 tracking-wider">الحل</div>
+          <p class="text-[#0a1f12] leading-relaxed">
+            <span class="font-bold">حصر</span> منصة SaaS تجمع 6 أدوات ذكية في تدفق واحد:
+            حاسبة الميراث الشرعي، محاكي السيناريوهات (بيع/تأجير/تطوير)، المفاوض الذكي،
+            تنبؤ القيمة المستقبلية، كاشف النزاعات، وتوليد المحاضر آلياً —
+            تختصر مدة التسوية من سنوات إلى أشهر.
+          </p>
+        </div>
+
+        <div>
+          <div class="text-[#c9a961] text-xs font-semibold mb-2 tracking-wider">التموضع</div>
+          <p class="text-[#0a1f12] leading-relaxed">
+            ليست ERP محاسبي ولا منصة عقار عامة. حصر تملك الفئة الفرعية
+            <span class="italic">"تصفية التركات العقارية"</span> — قطاع لا يخدمه أي منافس رقمي متخصص اليوم.
+            الميزة الدفاعية: فهم عميق للفقه الإسلامي + الأنظمة السعودية + بيانات وزارة العدل،
+            وهو مزيج يصعب تكراره من قبل لاعب أجنبي.
+          </p>
+        </div>
+
+        <div>
+          <div class="text-[#c9a961] text-xs font-semibold mb-2 tracking-wider">الطلب</div>
+          <p class="text-[#0a1f12] leading-relaxed">
+            النموذج الأولي يعمل فعلياً على 6 صفحات و 4 لوحات تحكم.
+            خطة الإطلاق تستهدف <span class="font-bold">120 ملف في السنة الأولى</span> (سيناريو محافظ)
+            من خلال 3 مكاتب محاماة شريكة في أبها والرياض، مع إيرادات مستهدفة
+            <span class="font-bold text-[#1a4d2e]">2.085 مليون ريال</span>
+            وهامش ربح إجمالي <span class="font-bold text-[#1a4d2e]">62%</span>
+            ونقطة تعادل في الشهر السادس.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: key metrics card -->
+      <div class="md:col-span-5">
+        <div class="bg-[#0d2818] text-white p-8 relative corner-mark h-full">
+          <div class="text-[#c9a961] text-xs tracking-[0.2em] mb-6">SNAPSHOT — السنة الأولى</div>
+
+          <div class="space-y-5">
+            <div class="flex justify-between items-baseline border-b border-white/10 pb-3">
+              <span class="text-white/70 text-sm">الإيرادات المستهدفة</span>
+              <span class="num-display text-2xl text-[#c9a961]">2.085M</span>
+            </div>
+            <div class="flex justify-between items-baseline border-b border-white/10 pb-3">
+              <span class="text-white/70 text-sm">إجمالي التكاليف</span>
+              <span class="num-display text-2xl text-white">793K</span>
+            </div>
+            <div class="flex justify-between items-baseline border-b border-white/10 pb-3">
+              <span class="text-white/70 text-sm">الربح الإجمالي</span>
+              <span class="num-display text-2xl text-[#c9a961]">1.292M</span>
+            </div>
+            <div class="flex justify-between items-baseline border-b border-white/10 pb-3">
+              <span class="text-white/70 text-sm">هامش الربح</span>
+              <span class="num-display text-2xl text-[#c9a961]">62%</span>
+            </div>
+            <div class="flex justify-between items-baseline border-b border-white/10 pb-3">
+              <span class="text-white/70 text-sm">ملفات مستهدفة</span>
+              <span class="num-display text-2xl text-white">120</span>
+            </div>
+            <div class="flex justify-between items-baseline border-b border-white/10 pb-3">
+              <span class="text-white/70 text-sm">نقطة التعادل</span>
+              <span class="num-display text-2xl text-[#c9a961]">شهر 6</span>
+            </div>
+          </div>
+
+          <div class="source-badge mt-6">
+            افتراضات: متوسط 10 ملفات/شهر · متوسط قيمة ملف 5M ريال · رسوم نجاح 1.5% · 3 مكاتب مشتركة
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- 4. PROBLEM (deeper version) -->
+<!-- ====================================================== -->
+<section id="problem" class="deep-bg py-24 px-6 relative">
+  <div class="max-w-6xl mx-auto relative z-10">
+
+    <div class="mb-16">
+      <div class="section-tag mb-3" style="color:#c9a961;">01 — The Problem</div>
+      <h2 class="font-display text-white text-4xl md:text-6xl mb-6">
+        التركة العقارية في السعودية:<br/>
+        <span class="text-[#c9a961]">ثروة وطنية تذوب بين الإجراءات</span>
+      </h2>
+      <div class="gold-line w-32"></div>
+    </div>
+
+    <!-- The problem in one big number -->
+    <div class="grid md:grid-cols-12 gap-8 mb-20">
+      <div class="md:col-span-5">
+        <div class="text-[#c9a961] text-sm tracking-[0.3em] mb-4">حجم المشكلة</div>
+        <div class="num-xxl mb-4">+500K</div>
+        <div class="text-white/80 text-xl mb-2">ملف تركة مفتوح في المحاكم السعودية</div>
+        <div class="text-white/50 text-sm mb-6">تقدير محسوب بناءً على بيانات الصفقات السنوية ومتوسط مدة التسوية</div>
+        <div class="source-badge">المصدر: تقدير ARKANE AI استناداً إلى بيانات وزارة العدل + JLL Saudi 2023</div>
+      </div>
+      <div class="md:col-span-7 flex items-center">
+        <div class="border-r-2 border-[#c9a961] pr-8">
+          <div class="text-white/80 text-lg leading-relaxed mb-4">
+            كل ملف تركة عقارية يمر بمتوسط
+            <span class="text-[#c9a961] font-bold">5 إلى 12 سنة</span>
+            من النزاعات والإجراءات قبل التسوية النهائية. خلال هذه الفترة:
+          </div>
+          <ul class="space-y-3 text-white/70">
+            <li class="flex gap-3"><span class="text-[#c9a961]">▸</span> العقار يُجمَّد ولا يُؤجَّر ولا يُطوَّر</li>
+            <li class="flex gap-3"><span class="text-[#c9a961]">▸</span> الورثة يدفعون رسوم محاماة سنوية متراكمة</li>
+            <li class="flex gap-3"><span class="text-[#c9a961]">▸</span> الأصل يفقد <span class="font-bold text-[#c9a961]">3–7%</span> سنوياً (إهمال + تضخم)</li>
+            <li class="flex gap-3"><span class="text-[#c9a961]">▸</span> النزاعات الأسرية تتعمق وتصبح غير قابلة للحل</li>
+          </ul>
+          <div class="source-badge">معدل تدهور الأصول غير المُدارة — تقدير صناعي مبني على ممارسات السوق</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 stakeholders deep -->
+    <div class="mb-12">
+      <h3 class="font-display text-white text-2xl md:text-3xl mb-2">أربعة أطراف · أربع آلام مزمنة</h3>
+      <div class="text-white/50 text-sm mb-8">كل طرف يعاني بصمت — ولا أحد يربح من هذا الجمود</div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <div class="data-card border-r-4 border-[#b8453a] bg-[rgba(13,40,24,0.6)] p-8">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider mb-1">الطرف 01</div>
+            <h4 class="font-display text-white text-2xl">الوارث</h4>
+            <div class="text-white/50 text-sm">صاحب الحق الضائع</div>
+          </div>
+          <div class="text-4xl opacity-30">⚖</div>
+        </div>
+        <p class="text-white/70 leading-relaxed mb-4">
+          ينتظر سنوات للحصول على نصيبه. لا يعرف قيمة الأصول الحقيقية ولا آلية التصويت. أي خلاف مع أحد الورثة يُجمّد كل شيء.
+          غالباً ينتهي المشهد بتسوية مجحفة أو خصومة عائلية دائمة.
+        </p>
+        <div class="text-xs text-white/40 italic">"وقّعت قبل 7 سنين... ولسا ما استلمت ريال واحد"</div>
+      </div>
+
+      <div class="data-card border-r-4 border-[#c9a961] bg-[rgba(13,40,24,0.6)] p-8">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider mb-1">الطرف 02</div>
+            <h4 class="font-display text-white text-2xl">المكتب القانوني</h4>
+            <div class="text-white/50 text-sm">يعمل باليد</div>
+          </div>
+          <div class="text-4xl opacity-30">📂</div>
+        </div>
+        <p class="text-white/70 leading-relaxed mb-4">
+          يُدير 20+ ملف بالورق والواتساب وجداول إكسل. أي خطأ يُعرّضه للمساءلة المهنية.
+          لا أنظمة، لا أتمتة، لا تقارير شرعية تلقائية. الإنتاجية محدودة بعدد الموظفين، والعميل غير راضٍ عن البطء.
+        </p>
+        <div class="text-xs text-white/40 italic">"كل قضية تركة تأكل من وقت 3 محامين بدون عائد متناسب"</div>
+      </div>
+
+      <div class="data-card border-r-4 border-[#2a5d7a] bg-[rgba(13,40,24,0.6)] p-8">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider mb-1">الطرف 03</div>
+            <h4 class="font-display text-white text-2xl">المستثمر</h4>
+            <div class="text-white/50 text-sm">لا يجد الأصول</div>
+          </div>
+          <div class="text-4xl opacity-30">💼</div>
+        </div>
+        <p class="text-white/70 leading-relaxed mb-4">
+          عقارات بمئات الملايين عالقة في تركات لا يستطيع الوصول إليها. لا يوجد سوق منظم لفرص الاستثمار في التركات.
+          الفرصة موجودة، لكن قنوات الاكتشاف معطّلة — سوق مفقود بالكامل.
+        </p>
+        <div class="text-xs text-white/40 italic">"أعرف أن الفرص هناك، بس ما عندي طريقة أوصلها"</div>
+      </div>
+
+      <div class="data-card border-r-4 border-[#1a4d2e] bg-[rgba(13,40,24,0.6)] p-8">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider mb-1">الطرف 04</div>
+            <h4 class="font-display text-white text-2xl">الأصل العقاري</h4>
+            <div class="text-white/50 text-sm">يتدهور بصمت</div>
+          </div>
+          <div class="text-4xl opacity-30">🏚</div>
+        </div>
+        <p class="text-white/70 leading-relaxed mb-4">
+          عقارات لا تُصان، لا تُطوَّر، ولا تُؤجَّر. تفقد <span class="text-[#c9a961] font-bold">3–7%</span> من قيمتها سنوياً
+          (تضخم + تدهور مادي + ضياع الفرصة الاستثمارية). الورثة يتقاضون في المحاكم بينما الأصل يتآكل في الواقع.
+        </p>
+        <div class="text-xs text-white/40 italic">"المبنى عمره 12 سنة بلا صيانة... قيمته نزلت أكثر من النزاع نفسه"</div>
+      </div>
+    </div>
+
+    <!-- The cost of doing nothing -->
+    <div class="mt-16 border border-[#c9a961]/30 p-8 md:p-12 relative">
+      <div class="quote-mark absolute -top-8 right-8">"</div>
+      <div class="text-center">
+        <div class="text-[#c9a961] text-xs tracking-[0.3em] mb-4">تكلفة عدم الفعل</div>
+        <p class="font-display text-white text-2xl md:text-3xl leading-relaxed max-w-3xl mx-auto">
+          كل سنة تأخير في تصفية تركة عقارية متوسطة قيمتها 5 ملايين ريال
+          <span class="text-[#c9a961]">= 200K–350K ريال خسارة فعلية</span>
+          (إيجارات ضائعة + تدهور القيمة + تكاليف قانونية).
+        </p>
+        <div class="text-white/50 text-sm mt-6 italic">حساب توضيحي مبني على متوسطات السوق</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- 5. SOLUTION -->
+<!-- ====================================================== -->
+<section id="solution" class="py-24 px-6 paper-bg">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="mb-16">
+      <div class="section-tag mb-3">02 — The Solution</div>
+      <h2 class="font-display text-4xl md:text-6xl text-[#0d2818] mb-6">
+        حصر:<br/>
+        <span class="text-[#c9a961]">منظومة رقمية متكاملة</span>
+        من إدخال البيانات حتى توزيع الأصول
+      </h2>
+      <p class="text-[#0a1f12]/70 max-w-2xl text-lg">
+        ست أدوات ذكية + ثلاث لوحات تحكم متخصصة + سوق مستثمرين مدمج — في تدفق واحد متناسق.
+      </p>
+    </div>
+
+    <!-- 5-step process -->
+    <div class="mb-20 deep-bg p-8 md:p-12">
+      <div class="text-[#c9a961] text-xs tracking-[0.3em] mb-2">آلية العمل</div>
+      <h3 class="font-display text-white text-2xl md:text-3xl mb-12">5 خطوات لتصفية التركة</h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-2">
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto rounded-full bg-[#c9a961] text-[#0d2818] flex items-center justify-center font-display text-2xl font-bold mb-3">1</div>
+          <div class="text-white font-semibold mb-1">رفع البيانات</div>
+          <div class="text-white/60 text-xs">إدخال الأصول والورثة</div>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto rounded-full bg-[#c9a961] text-[#0d2818] flex items-center justify-center font-display text-2xl font-bold mb-3">2</div>
+          <div class="text-white font-semibold mb-1">الحساب الشرعي</div>
+          <div class="text-white/60 text-xs">تحديد الأنصبة تلقائياً</div>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto rounded-full bg-[#c9a961] text-[#0d2818] flex items-center justify-center font-display text-2xl font-bold mb-3">3</div>
+          <div class="text-white font-semibold mb-1">تقييم الأصول</div>
+          <div class="text-white/60 text-xs">محاكاة قيم السوق</div>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto rounded-full bg-[#c9a961] text-[#0d2818] flex items-center justify-center font-display text-2xl font-bold mb-3">4</div>
+          <div class="text-white font-semibold mb-1">تصويت الورثة</div>
+          <div class="text-white/60 text-xs">إجماع رقمي موثّق</div>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto rounded-full bg-[#c9a961] text-[#0d2818] flex items-center justify-center font-display text-2xl font-bold mb-3">5</div>
+          <div class="text-white font-semibold mb-1">التوزيع/البيع</div>
+          <div class="text-white/60 text-xs">تنفيذ القرار النهائي</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 AI tools -->
+    <div class="mb-12">
+      <h3 class="font-display text-3xl text-[#0d2818] mb-2">ست أدوات ذكية تعمل فعلياً</h3>
+      <div class="text-[#0a1f12]/60 text-sm mb-8">كل أداة منها تحل مشكلة محددة كانت تأخذ أسابيع</div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="data-card bg-white p-6 border-t-4 border-[#1a4d2e] shadow-sm">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-[#c9a961] font-display text-3xl font-bold">01</div>
+          <div class="text-2xl">⚖</div>
+        </div>
+        <h4 class="font-display text-xl text-[#0d2818] mb-2">حاسبة الميراث الشرعي</h4>
+        <p class="text-[#0a1f12]/70 text-sm leading-relaxed">
+          تحسب أنصبة جميع الورثة وفق الفقه السني تلقائياً بدقة 100% — الزوج/الزوجة، الأبوان، الأبناء، البنات، وأي علاقة أخرى.
+        </p>
+      </div>
+
+      <div class="data-card bg-white p-6 border-t-4 border-[#c9a961] shadow-sm">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-[#c9a961] font-display text-3xl font-bold">02</div>
+          <div class="text-2xl">🎯</div>
+        </div>
+        <h4 class="font-display text-xl text-[#0d2818] mb-2">محاكي السيناريوهات</h4>
+        <p class="text-[#0a1f12]/70 text-sm leading-relaxed">
+          يقارن 3 خيارات (بيع فوري / تأجير ثم بيع / تطوير ثم بيع) ويُظهر أفضل قرار مالي بالأرقام والرسوم البيانية.
+        </p>
+      </div>
+
+      <div class="data-card bg-white p-6 border-t-4 border-[#2a5d7a] shadow-sm">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-[#c9a961] font-display text-3xl font-bold">03</div>
+          <div class="text-2xl">🤝</div>
+        </div>
+        <h4 class="font-display text-xl text-[#0d2818] mb-2">المفاوض الذكي</h4>
+        <p class="text-[#0a1f12]/70 text-sm leading-relaxed">
+          يُحلّل الفجوة السعرية بين السوق والعرض المقدَّم ويقترح 3 ردود (وديّ / متوازن / حازم) جاهزة للإرسال.
+        </p>
+      </div>
+
+      <div class="data-card bg-white p-6 border-t-4 border-[#b8453a] shadow-sm">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-[#c9a961] font-display text-3xl font-bold">04</div>
+          <div class="text-2xl">📈</div>
+        </div>
+        <h4 class="font-display text-xl text-[#0d2818] mb-2">تنبؤ القيمة المستقبلية</h4>
+        <p class="text-[#0a1f12]/70 text-sm leading-relaxed">
+          يتوقع أسعار الأصول لـ 1–5 سنوات بمعادلة النمو المركّب مع مؤشرات التضخم — مخطط بياني فوري.
+        </p>
+      </div>
+
+      <div class="data-card bg-white p-6 border-t-4 border-[#c9a961] shadow-sm">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-[#c9a961] font-display text-3xl font-bold">05</div>
+          <div class="text-2xl">⚠</div>
+        </div>
+        <h4 class="font-display text-xl text-[#0d2818] mb-2">كاشف النزاعات</h4>
+        <p class="text-[#0a1f12]/70 text-sm leading-relaxed">
+          يُعطي نسبة 0–100 لاحتمالية الخلاف بناءً على الورثة المتأخرين، معارضة القرارات، طبيعة الأصول الصعبة.
+        </p>
+      </div>
+
+      <div class="data-card bg-white p-6 border-t-4 border-[#1a4d2e] shadow-sm">
+        <div class="flex justify-between items-start mb-4">
+          <div class="text-[#c9a961] font-display text-3xl font-bold">06</div>
+          <div class="text-2xl">📝</div>
+        </div>
+        <h4 class="font-display text-xl text-[#0d2818] mb-2">توليد المحاضر الآلي</h4>
+        <p class="text-[#0a1f12]/70 text-sm leading-relaxed">
+          يُصدر محاضر تصويت واجتماعات منسقة وموثقة بخطوة واحدة — جاهزة للطباعة أو الإرسال الإلكتروني.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3 dashboards -->
+    <div class="mt-20">
+      <h3 class="font-display text-3xl text-[#0d2818] mb-2">ثلاث لوحات تحكم · منصة واحدة</h3>
+      <div class="text-[#0a1f12]/60 text-sm mb-10">كل طرف يدخل لعالمه ويجد ما يحتاجه بالضبط</div>
+
+      <div class="grid md:grid-cols-3 gap-px bg-[#c9a961]">
+        <div class="bg-[#0d2818] p-8 text-white">
+          <div class="text-[#c9a961] text-xs tracking-wider mb-3">لوحة 01</div>
+          <h4 class="font-display text-2xl mb-4">الوارث</h4>
+          <ul class="space-y-2 text-sm text-white/80">
+            <li>· يرى حصته الشرعية بدقة فورية</li>
+            <li>· يصوّت على قرارات البيع والتقسيم</li>
+            <li>· يتابع مراحل التركة لحظة بلحظة</li>
+            <li>· يدخل أدوات التقييم مباشرة</li>
+          </ul>
+        </div>
+        <div class="bg-[#c9a961] p-8 text-[#0d2818]">
+          <div class="text-[#0d2818]/70 text-xs tracking-wider mb-3">لوحة 02</div>
+          <h4 class="font-display text-2xl mb-4">المكتب القانوني</h4>
+          <ul class="space-y-2 text-sm">
+            <li>· إدارة الملفات بسحب وإفلات Kanban</li>
+            <li>· تقويم جلسات وإجراءات معلقة</li>
+            <li>· إدارة 20+ ملف من مكان واحد</li>
+            <li>· توليد المحاضر وإرسالها فوراً</li>
+          </ul>
+        </div>
+        <div class="bg-[#2a5d7a] p-8 text-white">
+          <div class="text-[#c9a961] text-xs tracking-wider mb-3">لوحة 03</div>
+          <h4 class="font-display text-2xl mb-4">المستثمر</h4>
+          <ul class="space-y-2 text-sm text-white/80">
+            <li>· تصفّح الأصول المتاحة للبيع</li>
+            <li>· حاسبة العائد لأي فرصة</li>
+            <li>· مقارنة أصول بمخطط بياني</li>
+            <li>· تقديم عروض والتواصل مع الورثة</li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center text-xs text-[#0a1f12]/50 mt-6 italic">
+        كل لوحة مرتبطة بنفس الملف · تنسيق فوري بين الأطراف بدون واتساب ولا اتصالات مكررة
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- 6. MARKET (TAM/SAM/SOM with verified sources) -->
+<!-- ====================================================== -->
+<section id="market" class="deep-bg py-24 px-6 relative">
+  <div class="max-w-6xl mx-auto relative z-10">
+
+    <div class="mb-16">
+      <div class="section-tag mb-3" style="color:#c9a961;">03 — Market Sizing</div>
+      <h2 class="font-display text-white text-4xl md:text-6xl mb-6">
+        حجم السوق <span class="text-[#c9a961]">— بأرقام موثقة</span>
+      </h2>
+      <p class="text-white/70 max-w-2xl text-lg">
+        تحليل TAM / SAM / SOM للسوق العقاري السعودي مع تركيز على الجزء الإرثي القابل للتسوية.
+      </p>
+    </div>
+
+    <!-- Verified market data -->
+    <div class="grid md:grid-cols-2 gap-6 mb-16">
+
+      <div class="bg-[rgba(13,40,24,0.6)] border border-[#c9a961]/30 p-8">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider">TAM — السوق العقاري الكلي</div>
+            <div class="text-white/50 text-xs mt-1">إجمالي قيمة الصفقات العقارية في السعودية · 2024</div>
+          </div>
+        </div>
+        <div class="num-xxl mb-2">2.5T</div>
+        <div class="text-white/80 text-lg mb-4">ريال — أكثر من 622,000 صفقة</div>
+        <p class="text-white/60 text-sm leading-relaxed">
+          سوق العقار السعودي ثاني أكبر قطاع اقتصادي بعد النفط. هيئة العقار تتوقع نمو حجم السوق
+          من 241B في 2023 إلى 353B بحلول 2028 بمعدل نمو سنوي مركّب 7.89%.
+        </p>
+        <div class="source-badge">
+          البورصة العقارية - وزارة العدل (2024) · هيئة العقار · CBRE Saudi
+        </div>
+      </div>
+
+      <div class="bg-[rgba(13,40,24,0.6)] border border-[#c9a961]/30 p-8">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider">SAM — التركات القابلة للتسوية</div>
+            <div class="text-white/50 text-xs mt-1">شريحة العقارات المرتبطة بتركات نشطة</div>
+          </div>
+        </div>
+        <div class="num-xxl mb-2">~80B</div>
+        <div class="text-white/80 text-lg mb-4">ريال (تقدير محسوب)</div>
+        <p class="text-white/60 text-sm leading-relaxed">
+          محسوبة كنسبة 3-4% من الأصول العقارية الإجمالية المرتبطة بتركات تحتاج تسوية فعلية خلال 1–5 سنوات.
+          هذا تقدير محافظ متوافق مع تقارير الصناعة العقارية في المنطقة.
+        </p>
+        <div class="source-badge">
+          تقدير ARKANE AI · مرجع: JLL Saudi 2023 + ممارسات السوق
+        </div>
+      </div>
+
+      <div class="bg-[#c9a961] text-[#0d2818] p-8 md:col-span-2">
+        <div class="grid md:grid-cols-3 gap-6 items-center">
+          <div>
+            <div class="text-[#0d2818]/70 text-xs tracking-wider mb-2">SOM — هدف السنة الأولى</div>
+            <div class="num-xxl text-[#0d2818]" style="font-size:5rem;">1.2B</div>
+            <div class="text-[#0d2818] text-base">ريال — منطقتي عسير + الرياض</div>
+          </div>
+          <div class="md:col-span-2 text-sm leading-relaxed">
+            <p class="mb-3">
+              هدف الاختراق الأولي هو 120 ملف بمتوسط قيمة 10M ريال للملف = 1.2B ريال أصول مُدارة في السنة الأولى.
+              هذا يمثّل أقل من <span class="font-bold">1.5%</span> من SAM المقدَّر —
+              مساحة نمو واسعة جداً بدون أي ضغط على القدرة التشغيلية.
+            </p>
+            <div class="text-[#0d2818]/60 text-xs italic">
+              المصدر: تقديرات ARKANE AI بناءً على تسعير CBRE للعقار السعودي 2024
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAM/SAM/SOM Visualization -->
+    <div class="bg-[rgba(13,40,24,0.4)] border border-[#c9a961]/20 p-8 md:p-12 mb-16">
+      <h3 class="font-display text-white text-2xl mb-2">قياس الفرصة بصرياً</h3>
+      <div class="text-white/50 text-xs mb-8">SOM = أقل من 1.5% من SAM = حجم نمو متاح يفوق القدرة التشغيلية لـ 10+ سنوات</div>
+      <div class="chart-wrap">
+        <canvas id="tamChart" height="280"></canvas>
+      </div>
+    </div>
+
+    <!-- Customer base sizing -->
+    <div>
+      <h3 class="font-display text-white text-2xl mb-8">قاعدة العملاء المستهدفة</h3>
+      <div class="grid md:grid-cols-4 gap-px bg-[#c9a961]/30">
+        <div class="bg-[#0d2818] p-6 text-center">
+          <div class="text-[#c9a961] num-display text-3xl mb-2">~3,500</div>
+          <div class="text-white text-sm font-semibold mb-1">مكاتب محاماة</div>
+          <div class="text-white/50 text-xs">السوق B2B الرئيسي</div>
+        </div>
+        <div class="bg-[#0d2818] p-6 text-center">
+          <div class="text-[#c9a961] num-display text-3xl mb-2">~25,000</div>
+          <div class="text-white text-sm font-semibold mb-1">مكتب عقار مرخّص</div>
+          <div class="text-white/50 text-xs">شركاء توزيع محتمل</div>
+        </div>
+        <div class="bg-[#0d2818] p-6 text-center">
+          <div class="text-[#c9a961] num-display text-3xl mb-2">~50K</div>
+          <div class="text-white text-sm font-semibold mb-1">قضية تركة تُفتح/سنة</div>
+          <div class="text-white/50 text-xs">تدفق ملفات جديدة</div>
+        </div>
+        <div class="bg-[#0d2818] p-6 text-center">
+          <div class="text-[#c9a961] num-display text-3xl mb-2">200K+</div>
+          <div class="text-white text-sm font-semibold mb-1">ورثة محتملون / سنة</div>
+          <div class="text-white/50 text-xs">المستخدم النهائي B2C</div>
+        </div>
+      </div>
+      <div class="text-white/40 text-xs italic mt-4 text-center">
+        تقديرات مبنية على بيانات وزارة العدل + الهيئة السعودية للمحامين + هيئة العقار · أرقام تقريبية للتقدير الاستراتيجي
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- 7. COMPETITION -->
+<!-- ====================================================== -->
+<section id="competition" class="py-24 px-6 paper-bg">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="mb-16">
+      <div class="section-tag mb-3">04 — Competitive Landscape</div>
+      <h2 class="font-display text-4xl md:text-6xl text-[#0d2818] mb-6">
+        المشهد التنافسي:<br/>
+        <span class="text-[#c9a961]">حصر تملأ فراغاً مخصصاً</span>
+      </h2>
+      <p class="text-[#0a1f12]/70 max-w-3xl text-lg">
+        السوق فيه حلول عامة (محاسبة، عقار، محاماة) لكن لا يوجد منافس رقمي متخصص في تصفية التركات العقارية.
+        حصر لا تنافس مباشرة هذه الحلول — بل تكمّلها وتُربط بها كطبقة متخصصة.
+      </p>
+    </div>
+
+    <!-- Competition matrix -->
+    <div class="bg-white border border-[#0d2818]/10 overflow-hidden mb-16">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-[#0d2818] text-white">
+              <th class="p-4 text-right font-semibold">المعيار</th>
+              <th class="p-4 text-center font-semibold bg-[#c9a961] text-[#0d2818]">حصر</th>
+              <th class="p-4 text-center font-semibold">مكاتب محاماة</th>
+              <th class="p-4 text-center font-semibold">العقار 360 / منصات</th>
+              <th class="p-4 text-center font-semibold">المحاسب / ERP</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#0d2818]/5">
+            <tr><td class="p-4 font-medium">حاسبة ميراث شرعي آلية</td>
+              <td class="p-4 text-center bg-[#c9a961]/10 font-bold text-[#1a4d2e]">✓ كاملة</td>
+              <td class="p-4 text-center text-[#b8453a]">✗ يدوية</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+            </tr>
+            <tr><td class="p-4 font-medium">محاكي سيناريوهات البيع</td>
+              <td class="p-4 text-center bg-[#c9a961]/10 font-bold text-[#1a4d2e]">✓</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+              <td class="p-4 text-center text-[#c9a961]">! جزئي</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+            </tr>
+            <tr><td class="p-4 font-medium">تصويت الورثة الرقمي</td>
+              <td class="p-4 text-center bg-[#c9a961]/10 font-bold text-[#1a4d2e]">✓</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+            </tr>
+            <tr><td class="p-4 font-medium">كاشف النزاعات بالذكاء الاصطناعي</td>
+              <td class="p-4 text-center bg-[#c9a961]/10 font-bold text-[#1a4d2e]">✓</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+            </tr>
+            <tr><td class="p-4 font-medium">سوق مستثمرين مدمج</td>
+              <td class="p-4 text-center bg-[#c9a961]/10 font-bold text-[#1a4d2e]">✓</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+              <td class="p-4 text-center text-[#c9a961]">! جزئي</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+            </tr>
+            <tr><td class="p-4 font-medium">توليد المحاضر الآلي</td>
+              <td class="p-4 text-center bg-[#c9a961]/10 font-bold text-[#1a4d2e]">✓</td>
+              <td class="p-4 text-center text-[#b8453a]">يدوي</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+              <td class="p-4 text-center text-[#b8453a]">✗</td>
+            </tr>
+            <tr class="bg-[#fbfaf6]"><td class="p-4 font-bold">التكلفة على الوارث</td>
+              <td class="p-4 text-center bg-[#c9a961]/10 font-bold text-[#1a4d2e]">منخفضة</td>
+              <td class="p-4 text-center text-[#b8453a] font-semibold">عالية جداً</td>
+              <td class="p-4 text-center">متوسطة</td>
+              <td class="p-4 text-center">مرتفعة</td>
+            </tr>
+            <tr class="bg-[#fbfaf6]"><td class="p-4 font-bold">سرعة الإنجاز المتوقعة</td>
+              <td class="p-4 text-center bg-[#c9a961]/10 font-bold text-[#1a4d2e]">1–3 أشهر*</td>
+              <td class="p-4 text-center text-[#b8453a] font-semibold">5–12 سنة</td>
+              <td class="p-4 text-center">غير محدد</td>
+              <td class="p-4 text-center">غير محدد</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bg-[#0d2818]/5 p-3 text-xs text-[#0a1f12]/60 text-center italic">
+        * هدف تصميمي — قيد التحقق في النموذج الأولي · [✓] = متوفّر · [!] = جزئي · [✗] = غير متوفر
+      </div>
+    </div>
+
+    <!-- Defensibility -->
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-[#0d2818] text-white p-8">
+        <div class="text-[#c9a961] text-3xl font-bold font-display mb-2">01</div>
+        <h4 class="font-display text-xl mb-3">التكامل العمودي</h4>
+        <p class="text-white/70 text-sm leading-relaxed">
+          المنافسون يقدّمون قطعة من المعادلة (محاسبة، أو إدارة عقار، أو خدمة قانونية).
+          حصر تربط الثلاثة في تدفق واحد — وهذا التكامل لا يُكرَّر بترقيع أداة على أخرى.
+        </p>
+      </div>
+      <div class="bg-[#1a4d2e] text-white p-8">
+        <div class="text-[#c9a961] text-3xl font-bold font-display mb-2">02</div>
+        <h4 class="font-display text-xl mb-3">حاجز الفقه + النظام</h4>
+        <p class="text-white/70 text-sm leading-relaxed">
+          أي شركة أجنبية تحتاج 3+ سنوات لفهم الفقه السني، نظام المحاكم السعودية، ومتطلبات وزارة العدل.
+          هذا حاجز دخول طبيعي يحمي اللاعب المحلي الأول.
+        </p>
+      </div>
+      <div class="bg-[#c9a961] text-[#0d2818] p-8">
+        <div class="text-[#0d2818] text-3xl font-bold font-display mb-2">03</div>
+        <h4 class="font-display text-xl mb-3">أثر الشبكة</h4>
+        <p class="text-sm leading-relaxed">
+          كل ملف جديد يُضاف إلى سوق المستثمرين يزيد من جاذبيته للمستثمرين الجدد،
+          وكل مستثمر إضافي يرفع سرعة بيع الأصول للورثة. حلقة قيمة تُعزّز نفسها.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- 8. BUSINESS MODEL — REVENUE STREAMS -->
+<!-- ====================================================== -->
+<section class="deep-bg py-24 px-6">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="mb-16">
+      <div class="section-tag mb-3" style="color:#c9a961;">05 — Business Model</div>
+      <h2 class="font-display text-white text-4xl md:text-6xl mb-6">
+        نموذج الإيرادات:<br/>
+        <span class="text-[#c9a961]">4 تيارات متكاملة</span>
+      </h2>
+      <p class="text-white/70 max-w-2xl text-lg">
+        المنصة لا تعتمد على مصدر إيرادي واحد. الإيرادات تتراكم مع كل ملف،
+        وتنوع المصادر يقلل المخاطر ويرفع LTV لكل عميل.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+
+      <div class="bg-[rgba(13,40,24,0.6)] border-r-4 border-[#c9a961] p-8">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider mb-1">التيار [أ] — الأساسي</div>
+            <h4 class="font-display text-white text-2xl">رسوم النجاح (Success Fee)</h4>
+          </div>
+          <div class="text-right">
+            <div class="num-display text-[#c9a961] text-3xl">1–2%</div>
+            <div class="text-white/50 text-xs">من قيمة التسوية</div>
+          </div>
+        </div>
+        <p class="text-white/70 text-sm leading-relaxed">
+          يُدفع <span class="font-semibold text-white">عند اكتمال البيع أو القسمة فقط</span>.
+          متوسط ملف 5 ملايين ريال = 50–100 ألف ريال إيراد للمنصة.
+          هذا التيار لا يخلق ضغطاً على العميل (يدفع من الناتج، لا من جيبه).
+        </p>
+        <div class="source-badge">المصدر الرئيسي والأكبر · يكبر مع كل ملف ينجح</div>
+      </div>
+
+      <div class="bg-[rgba(13,40,24,0.6)] border-r-4 border-[#c9a961] p-8">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider mb-1">التيار [ب] — المتكرر</div>
+            <h4 class="font-display text-white text-2xl">اشتراك مكاتب المحاماة</h4>
+          </div>
+          <div class="text-right">
+            <div class="num-display text-[#c9a961] text-3xl">2,400</div>
+            <div class="text-white/50 text-xs">ريال / شهر</div>
+          </div>
+        </div>
+        <p class="text-white/70 text-sm leading-relaxed">
+          وصول كامل لجميع الأدوات + لوحة Kanban + إدارة الملفات والتقارير.
+          مصدر ثابت يبدأ من أول مكتب شريك. الـ 3 مكاتب الأولى = 86,400 ريال إيراد سنوي ثابت.
+        </p>
+        <div class="source-badge">إيراد مكرر شهري · MRR قابل للتوسع</div>
+      </div>
+
+      <div class="bg-[rgba(13,40,24,0.6)] border-r-4 border-[#c9a961] p-8">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider mb-1">التيار [ج] — التعاملي</div>
+            <h4 class="font-display text-white text-2xl">رسوم إدراج الفرص</h4>
+          </div>
+          <div class="text-right">
+            <div class="num-display text-[#c9a961] text-3xl">5,000</div>
+            <div class="text-white/50 text-xs">ريال / إدراج</div>
+          </div>
+        </div>
+        <p class="text-white/70 text-sm leading-relaxed">
+          كل فرصة عقارية تُعرَض في سوق المستثمرين تدفع رسوم إدراج. تنمو تلقائياً مع نمو قاعدة المستثمرين.
+          مع 10 إدراجات شهرياً = 50,000 ريال شهري بدون تكاليف إضافية.
+        </p>
+        <div class="source-badge">يستفيد من أثر الشبكة · تكلفة هامشية صفرية</div>
+      </div>
+
+      <div class="bg-[rgba(13,40,24,0.6)] border-r-4 border-[#c9a961] p-8">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider mb-1">التيار [د] — الإضافي</div>
+            <h4 class="font-display text-white text-2xl">خدمات متقدمة</h4>
+          </div>
+          <div class="text-right">
+            <div class="num-display text-[#c9a961] text-3xl">500–5K</div>
+            <div class="text-white/50 text-xs">ريال / خدمة</div>
+          </div>
+        </div>
+        <p class="text-white/70 text-sm leading-relaxed">
+          تقارير تقييم مخصصة، تنبؤات متقدمة، دعم أولوي، خدمات إضافية للملفات الكبيرة والمعقدة.
+          هامش ربح عالي جداً (خدمات بشرية بأدوات المنصة).
+        </p>
+        <div class="source-badge">رفع متوسط الإيراد لكل ملف (ARPU)</div>
+      </div>
+    </div>
+
+    <!-- Unit economics -->
+    <div class="bg-[rgba(201,169,97,0.05)] border border-[#c9a961]/30 p-8 md:p-12">
+      <h3 class="font-display text-white text-2xl mb-2">اقتصاديات الوحدة (Unit Economics)</h3>
+      <div class="text-white/50 text-xs mb-8">لكل ملف تركة متوسط — السنة الأولى</div>
+
+      <div class="grid md:grid-cols-4 gap-6">
+        <div>
+          <div class="text-white/60 text-xs mb-1">الإيراد لكل ملف</div>
+          <div class="num-display text-[#c9a961] text-3xl">~17,375</div>
+          <div class="text-white/40 text-xs mt-1">ريال (متوسط)</div>
+        </div>
+        <div>
+          <div class="text-white/60 text-xs mb-1">التكلفة لكل ملف</div>
+          <div class="num-display text-white text-3xl">~6,608</div>
+          <div class="text-white/40 text-xs mt-1">ريال (تشغيل + خدمة)</div>
+        </div>
+        <div>
+          <div class="text-white/60 text-xs mb-1">الربح لكل ملف</div>
+          <div class="num-display text-[#c9a961] text-3xl">~10,767</div>
+          <div class="text-white/40 text-xs mt-1">ريال صافي</div>
+        </div>
+        <div>
+          <div class="text-white/60 text-xs mb-1">هامش الربح</div>
+          <div class="num-display text-[#c9a961] text-3xl">62%</div>
+          <div class="text-white/40 text-xs mt-1">إجمالي</div>
+        </div>
+      </div>
+      <div class="source-badge mt-6">
+        محسوب من: 2,085,000 ريال إيراد ÷ 120 ملف · 793,000 ريال تكلفة ÷ 120 ملف
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- 9. FINANCIAL PROJECTIONS — 3 scenarios -->
+<!-- ====================================================== -->
+<section id="financials" class="py-24 px-6 paper-bg">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="mb-16">
+      <div class="section-tag mb-3">06 — Financial Projections</div>
+      <h2 class="font-display text-4xl md:text-6xl text-[#0d2818] mb-6">
+        التوقعات المالية:<br/>
+        <span class="text-[#c9a961]">ثلاثة سيناريوهات</span>
+      </h2>
+      <p class="text-[#0a1f12]/70 max-w-3xl text-lg">
+        نقدم ثلاث سيناريوهات (محافظ / متوسط / متفائل) للسنة الأولى — لأن المستثمر الذكي
+        يريد فهم نطاق العائد، لا رقم واحد ورديّ.
+      </p>
+    </div>
+
+    <!-- Scenarios grid -->
+    <div class="grid md:grid-cols-3 gap-6 mb-16">
+
+      <!-- Conservative -->
+      <div class="bg-white border border-[#0d2818]/10 p-8 relative">
+        <div class="absolute top-0 right-0 bg-[#b8453a]/10 text-[#b8453a] text-xs px-3 py-1">محافظ</div>
+        <div class="text-[#c9a961] text-xs tracking-wider mb-4 mt-4">السيناريو الأساسي</div>
+        <h4 class="font-display text-2xl text-[#0d2818] mb-6">120 ملف · مكتبان</h4>
+
+        <div class="space-y-4 mb-6">
+          <div class="flex justify-between border-b border-[#0d2818]/5 pb-2">
+            <span class="text-sm text-[#0a1f12]/70">الإيرادات</span>
+            <span class="num-display text-lg">2.085M</span>
+          </div>
+          <div class="flex justify-between border-b border-[#0d2818]/5 pb-2">
+            <span class="text-sm text-[#0a1f12]/70">التكاليف</span>
+            <span class="num-display text-lg">793K</span>
+          </div>
+          <div class="flex justify-between border-b border-[#0d2818]/5 pb-2">
+            <span class="text-sm text-[#0a1f12]/70">الربح الإجمالي</span>
+            <span class="num-display text-lg text-[#1a4d2e]">1.292M</span>
+          </div>
+          <div class="flex justify-between border-b border-[#0d2818]/5 pb-2">
+            <span class="text-sm text-[#0a1f12]/70">هامش الربح</span>
+            <span class="num-display text-lg text-[#1a4d2e]">62%</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-sm text-[#0a1f12]/70">نقطة التعادل</span>
+            <span class="num-display text-lg text-[#1a4d2e]">شهر 6</span>
+          </div>
+        </div>
+
+        <div class="text-xs text-[#0a1f12]/50 italic">
+          افتراضات: 10 ملفات/شهر · رسوم نجاح 1.5% · 3 مكاتب مشتركة · متوسط ملف 5M
+        </div>
+      </div>
+
+      <!-- Base -->
+      <div class="bg-[#0d2818] text-white p-8 relative md:scale-105 md:shadow-2xl">
+        <div class="absolute top-0 right-0 bg-[#c9a961] text-[#0d2818] text-xs px-3 py-1 font-semibold">السيناريو المتوقع</div>
+        <div class="text-[#c9a961] text-xs tracking-wider mb-4 mt-4">السيناريو المتوسط</div>
+        <h4 class="font-display text-2xl mb-6">200 ملف · 5 مكاتب</h4>
+
+        <div class="space-y-4 mb-6">
+          <div class="flex justify-between border-b border-white/10 pb-2">
+            <span class="text-sm text-white/70">الإيرادات</span>
+            <span class="num-display text-lg text-[#c9a961]">3.65M</span>
+          </div>
+          <div class="flex justify-between border-b border-white/10 pb-2">
+            <span class="text-sm text-white/70">التكاليف</span>
+            <span class="num-display text-lg">1.21M</span>
+          </div>
+          <div class="flex justify-between border-b border-white/10 pb-2">
+            <span class="text-sm text-white/70">الربح الإجمالي</span>
+            <span class="num-display text-lg text-[#c9a961]">2.44M</span>
+          </div>
+          <div class="flex justify-between border-b border-white/10 pb-2">
+            <span class="text-sm text-white/70">هامش الربح</span>
+            <span class="num-display text-lg text-[#c9a961]">67%</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-sm text-white/70">نقطة التعادل</span>
+            <span class="num-display text-lg text-[#c9a961]">شهر 4</span>
+          </div>
+        </div>
+
+        <div class="text-xs text-white/50 italic">
+          افتراضات: 17 ملف/شهر · رسوم نجاح 1.5% · 5 مكاتب مشتركة · متوسط ملف 5–7M
+        </div>
+      </div>
+
+      <!-- Optimistic -->
+      <div class="bg-white border border-[#0d2818]/10 p-8 relative">
+        <div class="absolute top-0 right-0 bg-[#1a4d2e]/10 text-[#1a4d2e] text-xs px-3 py-1">متفائل</div>
+        <div class="text-[#c9a961] text-xs tracking-wider mb-4 mt-4">السيناريو الإيجابي</div>
+        <h4 class="font-display text-2xl text-[#0d2818] mb-6">350 ملف · 10 مكاتب</h4>
+
+        <div class="space-y-4 mb-6">
+          <div class="flex justify-between border-b border-[#0d2818]/5 pb-2">
+            <span class="text-sm text-[#0a1f12]/70">الإيرادات</span>
+            <span class="num-display text-lg">6.8M</span>
+          </div>
+          <div class="flex justify-between border-b border-[#0d2818]/5 pb-2">
+            <span class="text-sm text-[#0a1f12]/70">التكاليف</span>
+            <span class="num-display text-lg">2.18M</span>
+          </div>
+          <div class="flex justify-between border-b border-[#0d2818]/5 pb-2">
+            <span class="text-sm text-[#0a1f12]/70">الربح الإجمالي</span>
+            <span class="num-display text-lg text-[#1a4d2e]">4.62M</span>
+          </div>
+          <div class="flex justify-between border-b border-[#0d2818]/5 pb-2">
+            <span class="text-sm text-[#0a1f12]/70">هامش الربح</span>
+            <span class="num-display text-lg text-[#1a4d2e]">68%</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-sm text-[#0a1f12]/70">نقطة التعادل</span>
+            <span class="num-display text-lg text-[#1a4d2e]">شهر 3</span>
+          </div>
+        </div>
+
+        <div class="text-xs text-[#0a1f12]/50 italic">
+          افتراضات: 30 ملف/شهر · رسوم نجاح 1.7% · 10 مكاتب · متوسط ملف 7M · صفقات إنفاذ 2 صندوق
+        </div>
+      </div>
+    </div>
+
+    <!-- Revenue chart -->
+    <div class="bg-[#0d2818] text-white p-8 md:p-12 mb-16">
+      <h3 class="font-display text-2xl mb-2">توقعات الإيرادات الشهرية — السنة الأولى</h3>
+      <div class="text-white/50 text-xs mb-8">السيناريو المحافظ · بناءً على افتراضات تشغيلية واقعية</div>
+      <div class="chart-wrap" style="background:rgba(255,255,255,0.04);">
+        <canvas id="monthlyRevenueChart" height="280"></canvas>
+      </div>
+    </div>
+
+    <!-- Cost breakdown -->
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <div class="bg-white border border-[#0d2818]/10 p-8">
+        <h4 class="font-display text-xl text-[#0d2818] mb-2">توزيع الإيرادات (السنة 1)</h4>
+        <div class="text-[#0a1f12]/50 text-xs mb-6">من إجمالي 2.085M ريال</div>
+        <div class="chart-wrap">
+          <canvas id="revenueBreakdownChart" height="240"></canvas>
+        </div>
+      </div>
+
+      <div class="bg-white border border-[#0d2818]/10 p-8">
+        <h4 class="font-display text-xl text-[#0d2818] mb-2">توزيع التكاليف (السنة 1)</h4>
+        <div class="text-[#0a1f12]/50 text-xs mb-6">من إجمالي 793K ريال</div>
+        <div class="chart-wrap">
+          <canvas id="costBreakdownChart" height="240"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- 10. GO-TO-MARKET -->
+<!-- ====================================================== -->
+<section id="gtm" class="deep-bg py-24 px-6">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="mb-16">
+      <div class="section-tag mb-3" style="color:#c9a961;">07 — Go-to-Market</div>
+      <h2 class="font-display text-white text-4xl md:text-6xl mb-6">
+        استراتيجية الدخول:<br/>
+        <span class="text-[#c9a961]">من أبها إلى المملكة</span>
+      </h2>
+      <p class="text-white/70 max-w-2xl text-lg">
+        مراحل منهجية مدروسة — نبدأ من نقطة قوة محلية، نوسّع للمدن الكبرى، ثم ننطلق إقليمياً.
+      </p>
+    </div>
+
+    <!-- 3 phases timeline -->
+    <div class="grid md:grid-cols-3 gap-px bg-[#c9a961]/30 mb-16">
+
+      <div class="bg-[#c9a961] text-[#0d2818] p-8">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="text-[#0d2818]/70 text-xs tracking-wider">المرحلة 01</div>
+            <div class="text-xs">أشهر 1–4</div>
+          </div>
+          <div class="font-display text-5xl font-bold opacity-30">1</div>
+        </div>
+        <h3 class="font-display text-2xl mb-4">التحقق المحلي — أبها</h3>
+        <ul class="space-y-3 text-sm">
+          <li class="flex gap-2"><span>▸</span> ملفات تجريبية في أبها مع 10 مكاتب محاماة مختارة</li>
+          <li class="flex gap-2"><span>▸</span> جمع ملاحظات المستخدمين وتحسين الأدوات</li>
+          <li class="flex gap-2"><span>▸</span> بناء 3 قصص نجاح موثّقة وقابلة للنشر</li>
+          <li class="flex gap-2"><span>▸</span> اشتراك مجاني للمكاتب المبكرة مقابل التقييم</li>
+        </ul>
+        <div class="mt-6 pt-4 border-t border-[#0d2818]/20">
+          <div class="text-xs font-semibold">🎯 الهدف</div>
+          <div class="text-sm">3 مكاتب شريكة + 30 ملف نشط</div>
+        </div>
+      </div>
+
+      <div class="bg-[#1a4d2e] text-white p-8">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider">المرحلة 02</div>
+            <div class="text-xs text-white/60">أشهر 5–9</div>
+          </div>
+          <div class="font-display text-5xl font-bold opacity-30 text-[#c9a961]">2</div>
+        </div>
+        <h3 class="font-display text-2xl mb-4">الانتشار الإقليمي</h3>
+        <ul class="space-y-3 text-sm text-white/80">
+          <li class="flex gap-2"><span class="text-[#c9a961]">▸</span> جدة والرياض — فريق مبيعات من شخصين</li>
+          <li class="flex gap-2"><span class="text-[#c9a961]">▸</span> اشتراك مكاتب المحاماة: 2,400 ريال/شهر</li>
+          <li class="flex gap-2"><span class="text-[#c9a961]">▸</span> شراكة مع شركتي تثمين عقاري رئيسيتين</li>
+          <li class="flex gap-2"><span class="text-[#c9a961]">▸</span> إطلاق سوق المستثمرين بـ 50 فرصة</li>
+        </ul>
+        <div class="mt-6 pt-4 border-t border-white/20">
+          <div class="text-xs font-semibold text-[#c9a961]">🎯 الهدف</div>
+          <div class="text-sm">15 مكتب · 3 شركاء عقار · 80 ملف</div>
+        </div>
+      </div>
+
+      <div class="bg-[#0d2818] text-white p-8">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <div class="text-[#c9a961] text-xs tracking-wider">المرحلة 03</div>
+            <div class="text-xs text-white/60">أشهر 10–18</div>
+          </div>
+          <div class="font-display text-5xl font-bold opacity-30 text-[#c9a961]">3</div>
+        </div>
+        <h3 class="font-display text-2xl mb-4">التوسع الوطني</h3>
+        <ul class="space-y-3 text-sm text-white/80">
+          <li class="flex gap-2"><span class="text-[#c9a961]">▸</span> ناجز API — تكامل مع 5 مناطق رئيسية</li>
+          <li class="flex gap-2"><span class="text-[#c9a961]">▸</span> الخطة المؤسسية لكبار مكاتب المحاماة</li>
+          <li class="flex gap-2"><span class="text-[#c9a961]">▸</span> استهداف صناديق الاستثمار العقاري</li>
+          <li class="flex gap-2"><span class="text-[#c9a961]">▸</span> التوسع الإقليمي: الإمارات + الكويت</li>
+        </ul>
+        <div class="mt-6 pt-4 border-t border-white/20">
+          <div class="text-xs font-semibold text-[#c9a961]">🎯 الهدف</div>
+          <div class="text-sm">50+ مكتب · إيراد سنوي 8M+</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acquisition channels -->
+    <div>
+      <h3 class="font-display text-white text-2xl mb-8">قنوات الاكتساب</h3>
+      <div class="grid md:grid-cols-4 gap-6">
+
+        <div class="bg-[rgba(13,40,24,0.6)] border-r-2 border-[#c9a961] p-6">
+          <div class="text-[#c9a961] text-xs tracking-wider mb-2">قناة 01</div>
+          <div class="text-white font-semibold mb-2">مكاتب المحاماة الشريكة</div>
+          <div class="text-white/60 text-xs leading-relaxed">العميل يصل عبر محاميه — أعلى معدل تحويل، أقل تكلفة اكتساب</div>
+        </div>
+
+        <div class="bg-[rgba(13,40,24,0.6)] border-r-2 border-[#c9a961] p-6">
+          <div class="text-[#c9a961] text-xs tracking-wider mb-2">قناة 02</div>
+          <div class="text-white font-semibold mb-2">مجتمعات العقار السعودي</div>
+          <div class="text-white/60 text-xs leading-relaxed">تويتر، LinkedIn، تليجرام — محتوى متخصص يبني السلطة</div>
+        </div>
+
+        <div class="bg-[rgba(13,40,24,0.6)] border-r-2 border-[#c9a961] p-6">
+          <div class="text-[#c9a961] text-xs tracking-wider mb-2">قناة 03</div>
+          <div class="text-white font-semibold mb-2">شركات التثمين العقاري</div>
+          <div class="text-white/60 text-xs leading-relaxed">شراكة مع المثمنين المعتمدين كقناة إحالة B2B</div>
+        </div>
+
+        <div class="bg-[rgba(13,40,24,0.6)] border-r-2 border-[#c9a961] p-6">
+          <div class="text-[#c9a961] text-xs tracking-wider mb-2">قناة 04</div>
+          <div class="text-white font-semibold mb-2">المحامين والمحاسبين</div>
+          <div class="text-white/60 text-xs leading-relaxed">حوافز إحالة للمستشارين الذين يُحوّلون عملاءهم</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- 11. RISK MATRIX -->
+<!-- ====================================================== -->
+<section class="py-24 px-6 paper-bg">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="mb-16">
+      <div class="section-tag mb-3">08 — Risk Assessment</div>
+      <h2 class="font-display text-4xl md:text-6xl text-[#0d2818] mb-6">
+        تقييم المخاطر:<br/>
+        <span class="text-[#c9a961]">شفافية كاملة</span>
+      </h2>
+      <p class="text-[#0a1f12]/70 max-w-3xl text-lg">
+        نتعامل مع المخاطر بصراحة — كل مستثمر محترف يقدّر الجرأة في تشخيص المخاطر أكثر من إخفائها.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <div class="bg-white border border-[#0d2818]/10 p-8">
+        <div class="flex items-start justify-between mb-4">
+          <h4 class="font-display text-xl text-[#0d2818]">مخاطرة 01 — التبني البطيء</h4>
+          <div class="text-xs px-3 py-1 bg-[#b8453a]/10 text-[#b8453a] rounded">مرتفعة</div>
+        </div>
+        <p class="text-[#0a1f12]/70 text-sm mb-4">
+          المحامون السعوديون قطاع تقليدي ومقاوم للتغيير. قد يستغرق 12+ شهراً لتحويل سلوكهم نحو منصة رقمية.
+        </p>
+        <div class="text-xs text-[#1a4d2e] font-semibold mb-2">↳ التخفيف</div>
+        <p class="text-xs text-[#0a1f12]/60">
+          نموذج اشتراك مجاني للمكاتب الأولى مقابل قصص نجاح. التركيز على المكاتب الشابة والرقمية أولاً.
+          ROI واضح: المكتب يكسب 30-40 ساعة شهرياً = إيراد إضافي.
+        </p>
+      </div>
+
+      <div class="bg-white border border-[#0d2818]/10 p-8">
+        <div class="flex items-start justify-between mb-4">
+          <h4 class="font-display text-xl text-[#0d2818]">مخاطرة 02 — الحساسية الشرعية</h4>
+          <div class="text-xs px-3 py-1 bg-[#c9a961]/10 text-[#0d2818] rounded">متوسطة</div>
+        </div>
+        <p class="text-[#0a1f12]/70 text-sm mb-4">
+          أي خطأ في حسابات الميراث الشرعي قد يؤدي إلى مساءلة قانونية أو رفض شرعي للمنصة.
+        </p>
+        <div class="text-xs text-[#1a4d2e] font-semibold mb-2">↳ التخفيف</div>
+        <p class="text-xs text-[#0a1f12]/60">
+          مراجعة الخوارزميات من قبل عالم شرعي معتمد + شهادة من هيئة كبار العلماء أو جامعة شرعية.
+          إخلاء مسؤولية واضح: المنصة أداة مساعدة، القرار النهائي للمحكمة.
+        </p>
+      </div>
+
+      <div class="bg-white border border-[#0d2818]/10 p-8">
+        <div class="flex items-start justify-between mb-4">
+          <h4 class="font-display text-xl text-[#0d2818]">مخاطرة 03 — التغير التنظيمي</h4>
+          <div class="text-xs px-3 py-1 bg-[#c9a961]/10 text-[#0d2818] rounded">متوسطة</div>
+        </div>
+        <p class="text-[#0a1f12]/70 text-sm mb-4">
+          الجهات الحكومية (وزارة العدل، هيئة العقار) قد تطلق منصة منافسة مجانية أو تغير الأنظمة.
+        </p>
+        <div class="text-xs text-[#1a4d2e] font-semibold mb-2">↳ التخفيف</div>
+        <p class="text-xs text-[#0a1f12]/60">
+          التموضع كـ "طبقة ذكية" تتكامل مع ناجز وأبشر، لا كمنافس لها.
+          بناء علاقة مبكرة مع الجهات الرسمية كشريك تقني محتمل.
+        </p>
+      </div>
+
+      <div class="bg-white border border-[#0d2818]/10 p-8">
+        <div class="flex items-start justify-between mb-4">
+          <h4 class="font-display text-xl text-[#0d2818]">مخاطرة 04 — منافس برأس مال أكبر</h4>
+          <div class="text-xs px-3 py-1 bg-[#1a4d2e]/10 text-[#1a4d2e] rounded">منخفضة</div>
+        </div>
+        <p class="text-[#0a1f12]/70 text-sm mb-4">
+          شركة PropTech كبيرة (محلية أو إقليمية) قد تدخل السوق بحملة تمويل ضخمة وتسحق المنصة الناشئة.
+        </p>
+        <div class="text-xs text-[#1a4d2e] font-semibold mb-2">↳ التخفيف</div>
+        <p class="text-xs text-[#0a1f12]/60">
+          الأفضلية الزمنية + علاقات المكاتب الشريكة = خندق دفاعي.
+          البديل: الاستحواذ من قبل اللاعب الكبير = exit إيجابي للمستثمر.
+        </p>
+      </div>
+
+      <div class="bg-white border border-[#0d2818]/10 p-8">
+        <div class="flex items-start justify-between mb-4">
+          <h4 class="font-display text-xl text-[#0d2818]">مخاطرة 05 — تأخر التحصيل</h4>
+          <div class="text-xs px-3 py-1 bg-[#c9a961]/10 text-[#0d2818] rounded">متوسطة</div>
+        </div>
+        <p class="text-[#0a1f12]/70 text-sm mb-4">
+          نموذج Success Fee يعني انتظار اكتمال البيع لتحصيل الإيراد — قد يضغط على التدفق النقدي.
+        </p>
+        <div class="text-xs text-[#1a4d2e] font-semibold mb-2">↳ التخفيف</div>
+        <p class="text-xs text-[#0a1f12]/60">
+          توازن مع 3 تيارات إيراد أخرى (اشتراكات + إدراج + خدمات) تدخل من اليوم الأول.
+          هدف: 40% إيراد ثابت + 60% performance-based في السنة الأولى.
+        </p>
+      </div>
+
+      <div class="bg-white border border-[#0d2818]/10 p-8">
+        <div class="flex items-start justify-between mb-4">
+          <h4 class="font-display text-xl text-[#0d2818]">مخاطرة 06 — المؤسس الواحد</h4>
+          <div class="text-xs px-3 py-1 bg-[#b8453a]/10 text-[#b8453a] rounded">مرتفعة</div>
+        </div>
+        <p class="text-[#0a1f12]/70 text-sm mb-4">
+          المنصة مبنية حالياً من قبل مؤسس واحد — أي توقف صحي أو شخصي يهدد استمرار التطوير.
+        </p>
+        <div class="text-xs text-[#1a4d2e] font-semibold mb-2">↳ التخفيف</div>
+        <p class="text-xs text-[#0a1f12]/60">
+          جزء من الاستثمار سيُخصص لتعيين مطور تقني مساعد + شريك مبيعات في الشهر الثالث.
+          توثيق كامل للنظام والعمليات منذ اليوم الأول.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- 12. INVESTMENT ASK + USE OF FUNDS -->
+<!-- ====================================================== -->
+<section id="ask" class="deep-bg py-24 px-6 relative overflow-hidden">
+
+  <div class="hero-ornament w-96 h-96 rounded-full" style="top:-160px; right:-200px; border-color: rgba(201,169,97,0.15);"></div>
+  <div class="hero-ornament w-72 h-72 rounded-full" style="bottom:-100px; left:-100px; border-color: rgba(201,169,97,0.15);"></div>
+
+  <div class="max-w-6xl mx-auto relative z-10">
+
+    <div class="mb-16">
+      <div class="section-tag mb-3" style="color:#c9a961;">09 — Acquisition</div>
+      <h2 class="font-display text-white text-4xl md:text-6xl mb-6">
+        فرصة الاستحواذ
+      </h2>
+      <p class="text-white/70 max-w-3xl text-lg">
+        منصة "حصر" متاحة للاستحواذ الكامل أو الشراكة الاستراتيجية —
+        للجهات الحكومية، الشركات الاستراتيجية، صناديق الاستثمار، أو المستثمرين الأفراد.
+      </p>
+    </div>
+
+    <!-- The ask card -->
+    <div class="bg-[rgba(13,40,24,0.8)] border border-[#c9a961]/40 p-8 md:p-12 mb-12 corner-mark relative">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <div class="text-[#c9a961] text-xs tracking-[0.3em] mb-3">ما تشمله الصفقة</div>
+          <h3 class="font-display text-white text-3xl mb-6 leading-tight">حزمة الاستحواذ الشاملة</h3>
+          <p class="text-white/70 leading-relaxed mb-4">
+            نقل كامل لمنظومة "حصر" إلى الجهة المستحوذة — من الملكية الفكرية حتى النموذج العامل،
+            مع خيارات تفاوضية مرنة تناسب طبيعة كل جهة.
+          </p>
+          <div class="text-[#c9a961] text-xs tracking-wider pt-4 border-t border-[#c9a961]/20">
+            القيمة قابلة للتفاوض حسب نموذج الصفقة المختار
+          </div>
+        </div>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-center gap-3 text-white/80"><span class="text-[#c9a961]">✓</span> الملكية الفكرية الكاملة للمنصة</div>
+          <div class="flex items-center gap-3 text-white/80"><span class="text-[#c9a961]">✓</span> دراسة الجدوى الاستراتيجية الكاملة</div>
+          <div class="flex items-center gap-3 text-white/80"><span class="text-[#c9a961]">✓</span> نموذج العمل التجاري المفصّل</div>
+          <div class="flex items-center gap-3 text-white/80"><span class="text-[#c9a961]">✓</span> مخططات الخوارزميات الـ 6</div>
+          <div class="flex items-center gap-3 text-white/80"><span class="text-[#c9a961]">✓</span> النموذج الأولي العامل (8 صفحات / 4 لوحات / 6 أدوات)</div>
+          <div class="flex items-center gap-3 text-white/80"><span class="text-[#c9a961]">✓</span> استراتيجية الدخول الكاملة للسوق</div>
+          <div class="flex items-center gap-3 text-white/80"><span class="text-[#c9a961]">✓</span> ملفات التقديم للجهات الرسمية</div>
+          <div class="flex items-center gap-3 text-white/80"><span class="text-[#c9a961]">✓</span> دعم انتقالي بعد الاستحواذ (قابل للتفاوض)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acquisition models -->
+    <div class="mb-16">
+      <h3 class="font-display text-white text-2xl mb-2">نماذج الصفقة المتاحة</h3>
+      <div class="text-white/50 text-xs mb-8">ثلاثة هياكل مرنة — يختار المستحوذ ما يناسب طبيعته</div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <div class="bg-[rgba(13,40,24,0.6)] border border-[#c9a961]/30 p-8">
+          <div class="text-[#c9a961] text-xs tracking-wider mb-3">النموذج 01</div>
+          <h4 class="font-display text-white text-2xl mb-4">استحواذ كامل</h4>
+          <p class="text-white/70 text-sm leading-relaxed mb-4">
+            نقل ملكية شامل ودفعة واحدة. المستحوذ يأخذ كل الحقوق
+            والملكية الفكرية والوثائق دون التزامات لاحقة.
+          </p>
+          <div class="text-[#c9a961] text-xs pt-4 border-t border-[#c9a961]/20">
+            مناسب لـ: الجهات الحكومية والشركات الاستراتيجية
+          </div>
+        </div>
+
+        <div class="bg-[#c9a961] text-[#0d2818] p-8">
+          <div class="text-[#0d2818]/70 text-xs tracking-wider mb-3">النموذج 02</div>
+          <h4 class="font-display text-2xl mb-4">استحواذ + شراكة إيرادات</h4>
+          <p class="text-sm leading-relaxed mb-4">
+            دفعة مقدّمة أقل + نسبة من الإيرادات أو الأثر الاقتصادي
+            لمدة محددة. يخفّف المخاطرة على المستحوذ ويتيح المشاركة في النجاح.
+          </p>
+          <div class="text-[#0d2818] text-xs pt-4 border-t border-[#0d2818]/20 font-semibold">
+            مناسب لـ: الشركات والصناديق الاستثمارية
+          </div>
+        </div>
+
+        <div class="bg-[rgba(13,40,24,0.6)] border border-[#c9a961]/30 p-8">
+          <div class="text-[#c9a961] text-xs tracking-wider mb-3">النموذج 03</div>
+          <h4 class="font-display text-white text-2xl mb-4">ترخيص حصري</h4>
+          <p class="text-white/70 text-sm leading-relaxed mb-4">
+            ترخيص استخدام كامل دون نقل ملكية، مع رسوم سنوية ثابتة
+            أو نسبة من الإيرادات. مرونة عالية وبدء سريع.
+          </p>
+          <div class="text-[#c9a961] text-xs pt-4 border-t border-[#c9a961]/20">
+            مناسب لـ: المستثمرين الأفراد ومسرّعات الأعمال
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why now / why us -->
+    <div class="grid md:grid-cols-3 gap-6 mb-16">
+      <div class="bg-[rgba(201,169,97,0.08)] border-r-4 border-[#c9a961] p-6">
+        <div class="text-[#c9a961] font-display text-3xl mb-2">01</div>
+        <h4 class="font-display text-white text-lg mb-2">العملاء موجودون اليوم</h4>
+        <p class="text-white/70 text-sm">+500K ملف تركة في المحاكم. الطلب حقيقي والألم يومي. لا حل رقمي متخصص.</p>
+      </div>
+      <div class="bg-[rgba(201,169,97,0.08)] border-r-4 border-[#c9a961] p-6">
+        <div class="text-[#c9a961] font-display text-3xl mb-2">02</div>
+        <h4 class="font-display text-white text-lg mb-2">نموذج أولي يعمل</h4>
+        <p class="text-white/70 text-sm">منصة فعلية على arkane-ai-web.github.io — ليست Mockup، أدوات تعمل والتجربة قابلة للاختبار.</p>
+      </div>
+      <div class="bg-[rgba(201,169,97,0.08)] border-r-4 border-[#c9a961] p-6">
+        <div class="text-[#c9a961] font-display text-3xl mb-2">03</div>
+        <h4 class="font-display text-white text-lg mb-2">رؤية 2030 تدفع التحول</h4>
+        <p class="text-white/70 text-sm">الحكومة تستثمر مليارات في رقمنة العدالة والعقار — حصر تركب الموجة بدل مواجهتها.</p>
+      </div>
+      <div class="bg-[rgba(201,169,97,0.08)] border-r-4 border-[#c9a961] p-6">
+        <div class="text-[#c9a961] font-display text-3xl mb-2">04</div>
+        <h4 class="font-display text-white text-lg mb-2">حاجز دخول طبيعي</h4>
+        <p class="text-white/70 text-sm">الفقه السني + النظام السعودي + الثقافة المحلية = حماية ضد المنافسين الأجانب.</p>
+      </div>
+      <div class="bg-[rgba(201,169,97,0.08)] border-r-4 border-[#c9a961] p-6">
+        <div class="text-[#c9a961] font-display text-3xl mb-2">05</div>
+        <h4 class="font-display text-white text-lg mb-2">قابلة للتصدير</h4>
+        <p class="text-white/70 text-sm">نفس المشكلة في الإمارات والكويت ومصر والمغرب. النجاح في السعودية = جواز للمنطقة.</p>
+      </div>
+      <div class="bg-[rgba(201,169,97,0.08)] border-r-4 border-[#c9a961] p-6">
+        <div class="text-[#c9a961] font-display text-3xl mb-2">06</div>
+        <h4 class="font-display text-white text-lg mb-2">Exit واضح</h4>
+        <p class="text-white/70 text-sm">المشترون المحتملون: STC Solutions، Elm، Tabby، شركات PropTech إقليمية، صناديق رؤية.</p>
+      </div>
+    </div>
+
+    <!-- Final CTA -->
+    <div class="text-center pt-12 border-t border-[#c9a961]/20">
+      <div class="text-[#c9a961] text-xs tracking-[0.4em] mb-4">للتواصل والتفاوض</div>
+      <h3 class="font-display text-white text-3xl md:text-4xl mb-8">
+        ARKANE AI · Strategic Intelligence
+      </h3>
+      <div class="flex flex-col md:flex-row gap-4 justify-center items-center text-white/70">
+        <a href="https://arkane-ai-web.github.io/Hasr/" class="px-6 py-3 bg-[#c9a961] text-[#0d2818] font-semibold hover:bg-white transition">
+          تجربة المنصة الحية
+        </a>
+        <a href="https://wa.me/966565833185" class="px-6 py-3 border border-[#c9a961] text-[#c9a961] hover:bg-[#c9a961] hover:text-[#0d2818] transition">
+          WhatsApp · +966 56 583 3185
+        </a>
+        <a href="mailto:faisalasiri2019@gmail.com" class="px-6 py-3 border border-white/30 text-white/80 hover:border-white hover:text-white transition">
+          faisalasiri2019@gmail.com
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- 13. SOURCES & METHODOLOGY -->
+<!-- ====================================================== -->
+<section class="bg-[#0a1f12] py-16 px-6 border-t border-[#c9a961]/20">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-8">
+      <div class="text-[#c9a961] text-xs tracking-[0.3em] mb-2">SOURCES & METHODOLOGY</div>
+      <h3 class="font-display text-white text-2xl">المصادر والمنهجية</h3>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 text-sm">
+      <div>
+        <h4 class="text-[#c9a961] font-semibold mb-3 text-xs tracking-wider">المصادر الرسمية</h4>
+        <ul class="space-y-2 text-white/60 text-xs leading-relaxed">
+          <li>◆ <strong class="text-white/80">البورصة العقارية - وزارة العدل السعودية (2024):</strong> 2.5 تريليون ريال صفقات / 622K معاملة</li>
+          <li>◆ <strong class="text-white/80">الهيئة العامة للعقار:</strong> توقعات نمو السوق من 241B إلى 353B بحلول 2028 (CAGR 7.89%)</li>
+          <li>◆ <strong class="text-white/80">CBRE Saudi Arabia:</strong> تقارير أسعار العقار السكني والتجاري Q1-Q4 2024</li>
+          <li>◆ <strong class="text-white/80">JLL Saudi Arabia:</strong> Saudi Real Estate Market Report 2023</li>
+          <li>◆ <strong class="text-white/80">الهيئة العامة للإحصاء:</strong> الرقم القياسي لأسعار العقارات Q2 2025</li>
+          <li>◆ <strong class="text-white/80">Mordor Intelligence:</strong> حجم سوق العقار السعودي 69.51B$ (2024) → 101.62B$ (2029)</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-[#c9a961] font-semibold mb-3 text-xs tracking-wider">التقديرات والمنهجية</h4>
+        <ul class="space-y-2 text-white/60 text-xs leading-relaxed">
+          <li>◆ <strong class="text-white/80">عدد ملفات التركة (+500K):</strong> تقدير محسوب بناءً على متوسط الوفيات السنوية × نسبة الأملاك العقارية × مدة التسوية المتوسطة</li>
+          <li>◆ <strong class="text-white/80">SAM 80B ريال:</strong> محسوب كنسبة 3-4% من إجمالي الأصول العقارية المرتبطة بتركات نشطة خلال 1-5 سنوات</li>
+          <li>◆ <strong class="text-white/80">معدل تدهور 3-7% سنوي:</strong> بناءً على ممارسات الصناعة في الأصول غير المُدارة (تضخم + تدهور مادي + فرصة ضائعة)</li>
+          <li>◆ <strong class="text-white/80">السيناريوهات الثلاثة:</strong> مبنية على افتراضات تشغيلية واقعية مع تنويع في عدد الملفات والمكاتب الشريكة</li>
+          <li>◆ <strong class="text-white/80">قاعدة العملاء:</strong> أرقام تقريبية من بيانات وزارة العدل + الهيئة السعودية للمحامين + هيئة العقار</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between gap-4 text-xs text-white/40">
+      <div>
+        ARKANE AI · Strategic Intelligence © 2026 · جميع الأرقام التقديرية يجب التحقق منها بشكل مستقل قبل أي قرار استثماري
+      </div>
+      <div>
+        إصدار البتش ديك: HASR-PD-2026-V5 · سري وخاص
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- CHARTS SCRIPT -->
+<!-- ====================================================== -->
+<script>
+  // Tailwind config
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          'display': ['Cairo', 'sans-serif'],
+          'serif': ['Cormorant Garamond', 'serif'],
+        }
+      }
+    }
+  };
+
+  // Common chart settings
+  Chart.defaults.font.family = "'Tajawal', sans-serif";
+  Chart.defaults.color = 'rgba(255,255,255,0.7)';
+
+  // 1) TAM/SAM/SOM Bar Chart
+  const tamCtx = document.getElementById('tamChart');
+  if (tamCtx) {
+    new Chart(tamCtx, {
+      type: 'bar',
+      data: {
+        labels: ['TAM — السوق العقاري الكلي', 'SAM — التركات القابلة للتسوية', 'SOM — هدف السنة الأولى'],
+        datasets: [{
+          label: 'مليار ريال',
+          data: [2500, 80, 1.2],
+          backgroundColor: ['#1a4d2e', '#c9a961', '#e4c989'],
+          borderColor: ['#c9a961', '#c9a961', '#c9a961'],
+          borderWidth: 1,
+          barThickness: 60
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            type: 'logarithmic',
+            ticks: {
+              color: 'rgba(255,255,255,0.5)',
+              callback: function(value) {
+                if (value >= 1000) return value/1000 + 'T';
+                if (value >= 1) return value + 'B';
+                return value;
+              }
+            },
+            grid: { color: 'rgba(255,255,255,0.05)' }
+          },
+          y: {
+            ticks: { color: 'rgba(255,255,255,0.8)', font: { size: 11 } },
+            grid: { display: false }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => ctx.parsed.x + ' مليار ريال'
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // 2) Monthly Revenue Chart (Year 1)
+  const monthlyCtx = document.getElementById('monthlyRevenueChart');
+  if (monthlyCtx) {
+    new Chart(monthlyCtx, {
+      type: 'line',
+      data: {
+        labels: ['ش1','ش2','ش3','ش4','ش5','ش6','ش7','ش8','ش9','ش10','ش11','ش12'],
+        datasets: [
+          {
+            label: 'الإيرادات الشهرية (ألف ريال)',
+            data: [45, 80, 110, 145, 165, 175, 185, 195, 205, 215, 225, 240],
+            borderColor: '#c9a961',
+            backgroundColor: 'rgba(201,169,97,0.15)',
+            tension: 0.4,
+            fill: true,
+            pointBackgroundColor: '#c9a961',
+            pointBorderColor: '#0d2818',
+            pointRadius: 4
+          },
+          {
+            label: 'التكاليف الشهرية (ألف ريال)',
+            data: [85, 75, 70, 68, 66, 65, 65, 64, 63, 63, 62, 62],
+            borderColor: '#b8453a',
+            backgroundColor: 'rgba(184,69,58,0.08)',
+            tension: 0.4,
+            fill: true,
+            pointBackgroundColor: '#b8453a',
+            pointRadius: 3,
+            borderDash: [5, 5]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { color: 'rgba(255,255,255,0.8)', font: { size: 11 } }
+          }
+        },
+        scales: {
+          y: {
+            ticks: { color: 'rgba(255,255,255,0.5)', callback: v => v + 'K' },
+            grid: { color: 'rgba(255,255,255,0.05)' }
+          },
+          x: {
+            ticks: { color: 'rgba(255,255,255,0.6)' },
+            grid: { display: false }
+          }
+        }
+      }
+    });
+  }
+
+  // 3) Revenue Breakdown (doughnut)
+  const revBreakCtx = document.getElementById('revenueBreakdownChart');
+  if (revBreakCtx) {
+    Chart.defaults.color = 'rgba(13,40,24,0.7)';
+    new Chart(revBreakCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['رسوم النجاح (1-2%)', 'اشتراك المكاتب', 'رسوم إدراج المستثمرين', 'خدمات متقدمة'],
+        datasets: [{
+          data: [55, 20, 15, 10],
+          backgroundColor: ['#1a4d2e', '#c9a961', '#2a5d7a', '#b8453a'],
+          borderWidth: 2,
+          borderColor: '#fbfaf6'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: 'rgba(13,40,24,0.8)', font: { size: 10 }, boxWidth: 12, padding: 10 }
+          },
+          tooltip: {
+            callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + '%' }
+          }
+        }
+      }
+    });
+  }
+
+  // 4) Cost Breakdown
+  const costBreakCtx = document.getElementById('costBreakdownChart');
+  if (costBreakCtx) {
+    new Chart(costBreakCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['التطوير التقني', 'المبيعات والتسويق', 'العمليات والامتثال', 'البنية السحابية والأدوات'],
+        datasets: [{
+          data: [40, 30, 18, 12],
+          backgroundColor: ['#0d2818', '#c9a961', '#1a4d2e', '#2a5d7a'],
+          borderWidth: 2,
+          borderColor: '#fbfaf6'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: 'rgba(13,40,24,0.8)', font: { size: 10 }, boxWidth: 12, padding: 10 }
+          },
+          tooltip: {
+            callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + '%' }
+          }
+        }
+      }
+    });
+  }
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
